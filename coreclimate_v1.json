@@ -695,7 +695,7 @@
       }
     },
 
-    "/intervals{_id}": {
+    "/intervals/{_id}": {
       "get": {
         "tags": ["Intervals"],
         "summary": "Retrieve an Interval",
