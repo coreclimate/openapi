@@ -1,0 +1,1010 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "coreclimate API Reference",
+    "description": "coreclimate developer API",
+    "contact": {
+      "email": "don@coreclimate.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://coreclimate-api.onrender.com/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Meters",
+      "description": "Object representing a meter endpoint -- can be either Electricity, Gas or Water"
+    }
+  ],
+  "paths": {
+    "/meters": {
+      "get": {
+        "tags": ["Meters"],
+        "summary": "List all meters",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Meters"],
+        "summary": "Create a new meter",
+        "description": "Create a new meter",
+        "requestBody": {
+          "description": "New Meter",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Meter"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+    "/meters/{_id}": {
+      "put": {
+        "tags": ["Meters"],
+        "summary": "Update a Meter",
+        "description": "Updates an meter in your account",
+        "operationId": "updateMeter",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "meter object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Meter to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Meter"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "meter updated",
+            "content": {}
+          },
+          "400": {
+            "description": "invalid input, object invalid",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "Meter"
+      },
+      "delete": {
+        "tags": ["Meters"],
+        "summary": "Delete a Meter",
+        "description": "Deletes a meter in your account",
+        "operationId": "deleteMeter",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "meter object id",
+            "example": "613a4b5acbcc00d89f06b6c0",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+
+        "responses": {
+          "204": {
+            "description": "meter deleted",
+            "content": {}
+          },
+          "404": {
+            "description": "invalid input, object invalid",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "Meter"
+      },
+      "get": {
+        "tags": ["Meters"],
+        "summary": "Retrieve a Meter",
+        "description": "Retrieve a meter in your account",
+        "operationId": "getMeter",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "meter object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "meter successfully retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Meter"
+                  },
+                  "maxItems": 100
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "resource not found",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "Meter"
+      }
+    },
+
+    "/accounts": {
+      "get": {
+        "tags": ["Accounts"],
+        "summary": "List all utility accounts",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Accounts"],
+        "summary": "Create a utility account",
+        "description": "Create a utility account",
+        "requestBody": {
+          "description": "New Account",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/accounts/{_id}": {
+      "get": {
+        "tags": ["Accounts"],
+        "summary": "Retrieve a utility Account",
+        "description": "Retrieve a customer utility account",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "account object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "account successfully retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "resource not found",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "Account"
+      },
+      "put": {
+        "tags": ["Accounts"],
+        "summary": "Update a Utility Account",
+        "description": "Updates a customer utility account",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "account object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Account to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "account updated",
+            "content": {}
+          },
+          "400": {
+            "description": "invalid input, object invalid",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "Account"
+      },
+      "delete": {
+        "tags": ["Accounts"],
+        "summary": "Delete a utility account",
+        "description": "",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Account object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+    "/credentials": {
+      "get": {
+        "tags": ["Credentials"],
+        "summary": "List all credentials",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Credentials"],
+        "summary": "Create a new set of credentials",
+        "description": "Create a new set of credentials",
+        "requestBody": {
+          "description": "New credentials",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Credential"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+    "/credentials/{_id}": {
+      "get": {
+        "tags": ["Credentials"],
+        "summary": "Retrieve credentials",
+        "description": "Retrieve a set of credentials for a customer's utility account",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "credential object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "credential successfully retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Credential"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "resource not found",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "Credential"
+      },
+      "put": {
+        "tags": ["Credentials"],
+        "summary": "Update a Credential",
+        "description": "Updates a customer credential",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "credential object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Credential to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Credential"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "credential updated",
+            "content": {}
+          },
+          "400": {
+            "description": "invalid input, object invalid",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "Credential"
+      },
+      "delete": {
+        "tags": ["Credentials"],
+        "summary": "Delete a credential",
+        "description": "",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "credential object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/customers": {
+      "get": {
+        "tags": ["Customers"],
+        "summary": "List all customers",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Customers"],
+        "summary": "Create a new customer",
+        "description": "Create a new customer",
+        "requestBody": {
+          "description": "New Customer",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+    "/customers/{_id}": {
+      "get": {
+        "tags": ["Customers"],
+        "summary": "Retrieve a Customer",
+        "description": "Retrieve a customer in your account",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "customer object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "customer successfully retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Customer"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "resource not found",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "Customer"
+      },
+      "put": {
+        "tags": ["Customers"],
+        "summary": "Update a Customer",
+        "description": "Updates a customer",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "customer object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Customer to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "customer updated",
+            "content": {}
+          },
+          "400": {
+            "description": "invalid input, object invalid",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "Customer"
+      },
+      "delete": {
+        "tags": ["Customers"],
+        "summary": "Delete a customer",
+        "description": "",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "customer object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/statements": {
+      "get": {
+        "tags": ["Statements"],
+        "summary": "List all statements",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/statements/{_id}": {
+      "get": {
+        "tags": ["Statements"],
+        "summary": "Retrieve a statement",
+        "description": "",
+        "operationId": "getStatement",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "statement object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "statement successfully retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Statement"
+                  },
+                  "maxItems": 100
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "resource not found",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "Statement"
+      }
+    },
+
+    "/dailies": {
+      "get": {
+        "tags": ["Dailies"],
+        "summary": "List all daily reports",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/dailies/{_id}": {
+      "get": {
+        "tags": ["Dailies"],
+        "summary": "Retrieve a Daily Report",
+        "description": "Retrieve a daily report",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "daily object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "daily successfully retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Daily"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "resource not found",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "Daily"
+      }
+    },
+    "/intervals": {
+      "get": {
+        "tags": ["Intervals"],
+        "summary": "List all intervals",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+    "/intervals{_id}": {
+      "get": {
+        "tags": ["Intervals"],
+        "summary": "Retrieve an Interval",
+        "description": "Retrieve an Interval",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Interval object id",
+            "example": "64106fcd8946e00aeaa8509f",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Interval successfully retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Interval"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "resource not found",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "Interval"
+      }
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    }
+  ],
+
+  "components": {
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "query"
+      }
+    },
+    "schemas": {
+      "Meter": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "63ff9a20b57ccc5aa23c9f38"
+          },
+          "meter_number": {
+            "type": "string",
+            "example": "10301782222"
+          },
+          "account": {
+            "type": "object",
+            "$ref": "#/components/schemas/Account"
+          },
+          "customer_id": {
+            "type": "string",
+            "example": "6404dd7cf51306004a0cabf6"
+          },
+          "meter_type": {
+            "type": "string",
+            "enum": ["electricity", "gas", "water"],
+            "example": "electricity"
+          },
+          "description": {
+            "type": "string",
+            "example": "Electricity meter ground floor"
+          },
+          "units": {
+            "type": "string",
+            "enum": ["kwh", "d3", "hcf"],
+            "example": "kwh"
+          },
+          "address": {
+            "type": "string",
+            "example": "One Apple Park Way, Cupertino, CA 95014, United States"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-10-1"
+          }
+        }
+      },
+      "Statement": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6404dd7cf51306004a0cabf6"
+          },
+          "customer_id": {
+            "type": "string",
+            "example": "6404dd7cf51306004a0cabf6"
+          },
+          "account_id": {
+            "type": "string",
+            "example": "6404dd7cf51306004a0cabf6"
+          },
+          "meter_id": {
+            "type": "string",
+            "example": "6404dd7cf51306004a0cabf6"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-1-1"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-1-1"
+          },
+          "statement_number": {
+            "type": "string",
+            "example": "6404dd7cf51306004a0cabf6"
+          },
+          "consumption": {
+            "type": "number",
+            "example": 123
+          },
+          "consumption_units": {
+            "type": "string",
+            "enum": ["kwh", "d3", "jcf"],
+            "example": "kwh"
+          },
+          "cost": {
+            "type": "number",
+            "example": 123
+          },
+          "cost_currency": {
+            "type": "string",
+            "enum": ["eur", "gbp", "usd"],
+            "example": "kwh"
+          },
+          "pdf_id": {
+            "type": "string",
+            "example": "6419dc56c22229907f257fe7"
+          }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "63f9512b67423828bc717d84"
+          },
+          "name": {
+            "type": "string",
+            "example": "Apple"
+          },
+          "email": {
+            "type": "string",
+            "example": "steve@apple.com"
+          },
+          "address": {
+            "type": "string",
+            "example": "One Apple Park Way, Cupertino, CA 95014, United States"
+          },
+          "meters": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "meter_id": {
+                  "type": "string",
+                  "example": "6404dd7cf51306004a0cabf6"
+                }
+              }
+            },
+            "maxItems": 1000
+          }
+        }
+      },
+      "Account": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "63f9512b67423828bc717d84"
+          },
+          "meter_id": {
+            "type": "string",
+            "example": "63f9512b67423828bc717d84"
+          },
+          "customer_id": {
+            "type": "string",
+            "example": "63f9512b67423828bc717d84"
+          },
+          "account_number": {
+            "type": "string",
+            "example": "1234567"
+          },
+          "credentials": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Credential"
+            },
+            "maxItems": 10
+          },
+          "statements": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "statement_id": {
+                  "type": "string",
+                  "example": "6404dd7cf51306004a0cabf6"
+                }
+              }
+            },
+            "maxItems": 1000
+          }
+        }
+      },
+      "Credential": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "63f9512b67423828bc717d84"
+          },
+          "username": {
+            "type": "string",
+            "example": "don@coreclimate.io"
+          },
+          "password": {
+            "type": "string",
+            "example": "will_not_be_stored_in_db"
+          },
+          "last_successful_use": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-10-1"
+          }
+        }
+      },
+      "Daily": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "63f9512b67423828bc717d84"
+          },
+          "meter_id": {
+            "type": "string",
+            "example": "63f9512b67423828bc717d84"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-10-1"
+          },
+          "sourece": {
+            "type": "string",
+            "enum": ["statement", "network"],
+            "example": "statement"
+          },
+          "consumption": {
+            "type": "number",
+            "example": "123"
+          },
+          "cost": {
+            "type": "number",
+            "example": "100.01"
+          }
+        }
+      },
+      "Interval": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "63f9512b67423828bc717d84"
+          },
+          "meter_id": {
+            "type": "string",
+            "example": "63f9512b67423828bc717d84"
+          },
+          "start_interval": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-10-1"
+          },
+          "end_interval": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-10-1"
+          },
+
+          "consumption": {
+            "type": "number",
+            "example": "123"
+          }
+        }
+      }
+    }
+  }
+}
